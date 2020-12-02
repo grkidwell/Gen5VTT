@@ -58,9 +58,6 @@ def setup_and_run_vectors(testrail,vectordict):
     vector_api.ReadVectorResponses()  
     return data_api.GetVectorDataOnce()  
  
-def output_tool_display():
-    pass
-
 def output_screen(vresult,vectordict):
     print("------------------------------------------------------------------------------")
     print("                              Hawkmock Vector                                 ")
@@ -87,19 +84,19 @@ def shutdown_tool(testrail):
     #data_api.SetTrigger(4, 0, 0, 0, 0, False)  # GUI will stay on the vector data if you comment this out
 
 #-------------------------------------------------------------------------
-# Input variables 
+# Input parameters
 
 test_rail     = 'VCCCORE'
 start_voltage = 0.9
 test_current  = 20  # (A)
 
-vector_dict = {'1' :{'descr':'read VID  ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 },'2' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20},
-               '3' :{'descr':'setVIDfast','cmd':SVIDCMD.FAST,  'data':0x00,'delay':800},'4' :{'descr':'read status1','cmd':SVIDCMD.GETREG,'data':0x10,'delay':20},
-               '5' :{'descr':'read PS   ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 },'6' :{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20},
-               '7' :{'descr':'set PS    ','cmd':SVIDCMD.PS,    'data':0x03,'delay':20 },'8' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20},
-               '9' :{'descr':'setVIDfast','cmd':SVIDCMD.FAST,  'data':0x82,'delay':800},'10':{'descr':'read status1','cmd':SVIDCMD.GETREG,'data':0x10,'delay':20},
-               '11':{'descr':'read PS   ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 },'12':{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20}}
-
+vector_dict   = {'1' :{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 }, '7' :{'descr':'set PS      ','cmd':SVIDCMD.PS,    'data':0x03,'delay':20 }, 
+                 '2' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 }, '8' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 },
+                 '3' :{'descr':'setVIDfast  ','cmd':SVIDCMD.FAST,  'data':0x00,'delay':800}, '9' :{'descr':'setVIDfast  ','cmd':SVIDCMD.FAST,  'data':0x82,'delay':800},
+                 '4' :{'descr':'read status1','cmd':SVIDCMD.GETREG,'data':0x10,'delay':20 }, '10':{'descr':'read status1','cmd':SVIDCMD.GETREG,'data':0x10,'delay':20 },
+                 '5' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 }, '11':{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 },
+                 '6' :{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 }, '12':{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 }}
+               
 #-------------------------------------------------------------------------
 # Main program
 
