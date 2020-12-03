@@ -22,7 +22,7 @@ def setup_tool_display(testrail,startvoltage,testcurrent):
     display_api.DisplayDigitalSignal("CSO1#")
     display_api.SetChannel(ScoplessChannel.Ch1, True)
     display_api.SetChannel(ScoplessChannel.Ch2, True)
-    display_api.SetHorizontalScale(HorizontalScale.Scale20us)
+    display_api.SetHorizontalScale(HorizontalScale.Scale40us)
     max_voltage = max(startvoltage,0)
     min_voltage = 0
     display_api.SetVerticalVoltageScale(min_voltage * 0.8, max_voltage * 1.2)
@@ -60,7 +60,7 @@ def setup_and_run_vectors(testrail,vectordict):
  
 def output_screen(vresult,vectordict):
     print("------------------------------------------------------------------------------")
-    print("                              Hawkmock Vector                                 ")
+    print("                              Hawkmock Vectors                                ")
     print("------------------------------------------------------------------------------")
     print("")
     print('COMMAND   \tACK\tDATA\tPRTYERR\tPRTYVAL')
@@ -90,12 +90,12 @@ test_rail     = 'VCCCORE'
 start_voltage = 0.9
 test_current  = 20  # (A)
 
-vector_dict   = {'1' :{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 }, '7' :{'descr':'set PS      ','cmd':SVIDCMD.PS,    'data':0x03,'delay':20 }, 
-                 '2' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 }, '8' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 },
-                 '3' :{'descr':'setVIDfast  ','cmd':SVIDCMD.FAST,  'data':0x00,'delay':800}, '9' :{'descr':'setVIDfast  ','cmd':SVIDCMD.FAST,  'data':0x82,'delay':800},
-                 '4' :{'descr':'read status1','cmd':SVIDCMD.GETREG,'data':0x10,'delay':20 }, '10':{'descr':'read status1','cmd':SVIDCMD.GETREG,'data':0x10,'delay':20 },
-                 '5' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 }, '11':{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 },
-                 '6' :{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 }, '12':{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 }}
+vector_dict   = {'1' :{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 }, '7' :{'descr':'set PS     ','cmd':SVIDCMD.PS,    'data':0x00,'delay':20 }, 
+                 '2' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 }, '8' :{'descr':'setVIDslow ','cmd':SVIDCMD.SLOW,  'data':0x82,'delay':3200},
+                 '3' :{'descr':'set PS      ','cmd':SVIDCMD.PS,    'data':0x04,'delay':1600}, 
+                 '4' :{'descr':'read status1','cmd':SVIDCMD.GETREG,'data':0x10,'delay':20 }, '9' :{'descr':'read status1','cmd':SVIDCMD.GETREG,'data':0x10,'delay':20 },
+                 '5' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 }, '10':{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 },
+                 '6' :{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 }, '11':{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 }}
                
 #-------------------------------------------------------------------------
 # Main program
@@ -108,19 +108,7 @@ shutdown_tool(test_rail)
 
 #
 #--------------------------------------------------------------------------
-#SVID Vector / Expected Output
-    #vector_api.CreateSimpleVector(1, rail.VRAddress,SVIDCMD.GETREG,0x31,20 ) # Read start VID
-    #vector_api.CreateSimpleVector(2, rail.VRAddress,SVIDCMD.GETREG,0x32,20 ) # Read start power state
-    #vector_api.CreateSimpleVector(3, rail.VRAddress,SVIDCMD.FAST,  0x00,800) # SetVIDFast to 00h  - NOTE Alert# should remain high
-    #vector_api.CreateSimpleVector(4, rail.VRAddress,SVIDCMD.GETREG,0x10,20 ) # get Status1 - should be VR_Settled
-    #vector_api.CreateSimpleVector(5, rail.VRAddress,SVIDCMD.GETREG,0x32,20 ) # Read end power state register
-    #vector_api.CreateSimpleVector(6, rail.VRAddress,SVIDCMD.GETREG,0x31,20 ) # Read end VID
-    #vector_api.CreateSimpleVector(7, rail.VRAddress,SVIDCMD.PS,    0x03,20 ) # Set PS to 3 - should ACK
-    #vector_api.CreateSimpleVector(8, rail.VRAddress,SVIDCMD.GETREG,0x32,20 ) # Read PS - should read PS0
-    #vector_api.CreateSimpleVector(9, rail.VRAddress,SVIDCMD.FAST,  0x82,800) # SetVIDfast to 900mV
-    #vector_api.CreateSimpleVector(10,rail.VRAddress,SVIDCMD.GETREG,0x10,20 ) # get Status1 - should be VR_Settled
-    #vector_api.CreateSimpleVector(11,rail.VRAddress,SVIDCMD.GETREG,0x32,20 ) # Read PS - should read PS0
-    #vector_api.CreateSimpleVector(12,rail.VRAddress,SVIDCMD.GETREG,0x31,20 ) # Read end VID
+
 
 
 
