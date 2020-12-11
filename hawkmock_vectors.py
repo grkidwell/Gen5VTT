@@ -48,6 +48,13 @@ def setup_and_run_vectors(testrail,vectordict):
         print('Test failed because the test rail could not be found. Please check the rail name.')
         exit()
 
+""" after testing, use below code to replace above.  
+    try:
+        rail = [r for r in generator_api.GetRails() if r.Name==testrail][0]
+    except:
+        print('Test failed because the test rail could not be found. Please check the rail name.')
+        exit()
+"""
     for idx,value in vectordict.items():
         vector_api.CreateSimpleVector(int(idx),rail.VRAddress,value['cmd'],value['data'],value['delay'])
 
@@ -86,17 +93,25 @@ def shutdown_tool(testrail):
 #-------------------------------------------------------------------------
 # Input parameters
 
-test_rail     = 'VCCCORE'
+test_rail     = 'VCCGT'
 start_voltage = 0.9
 test_current  = 20  # (A)
 
-vector_dict   = {'1' :{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 }, '7' :{'descr':'set PS      ','cmd':SVIDCMD.PS,    'data':0x03,'delay':20 }, 
-                 '2' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 }, '8' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 },
-                 '3' :{'descr':'setVIDfast  ','cmd':SVIDCMD.FAST,  'data':0x00,'delay':800}, '9' :{'descr':'setVIDfast  ','cmd':SVIDCMD.FAST,  'data':0x82,'delay':800},
-                 '4' :{'descr':'read status1','cmd':SVIDCMD.GETREG,'data':0x10,'delay':20 }, '10':{'descr':'read status1','cmd':SVIDCMD.GETREG,'data':0x10,'delay':20 },
-                 '5' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 }, '11':{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 },
-                 '6' :{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 }, '12':{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 }}
+vector_dict1   = {'1' :{'descr':'set regaddr ','cmd':SVIDCMD.REGADDR,'data':0x34,'delay':20 }, '7' :{'descr':'set PS      ','cmd':SVIDCMD.PS,    'data':0x03,'delay':20 }, 
+                  '2' :{'descr':'set regdata ','cmd':SVIDCMD.REGDATA,'data':0x00,'delay':20 }, '8' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 },
+                  '3' :{'descr':'setVIDfast  ','cmd':SVIDCMD.FAST,   'data':0x00,'delay':800}, '9' :{'descr':'setVIDfast  ','cmd':SVIDCMD.FAST,  'data':0x82,'delay':800},
+                  '4' :{'descr':'read status1','cmd':SVIDCMD.GETREG, 'data':0x10,'delay':20 }, '10':{'descr':'read status1','cmd':SVIDCMD.GETREG,'data':0x10,'delay':20 },
+                  '5' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG, 'data':0x32,'delay':20 }, '11':{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 },
+                  '6' :{'descr':'read VID    ','cmd':SVIDCMD.GETREG, 'data':0x31,'delay':20 }, '12':{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 }}
                
+vector_dict2   = {'1' :{'descr':'set regaddr ','cmd':SVIDCMD.REGADDR,'data':0x34,'delay':20 }, '7' :{'descr':'set PS     ','cmd':SVIDCMD.PS,    'data':0x00,'delay':20 }, 
+                  '2' :{'descr':'set regdata ','cmd':SVIDCMD.REGDATA,'data':0x01,'delay':20 }, '8' :{'descr':'setVIDslow ','cmd':SVIDCMD.SLOW,  'data':0x82,'delay':3200},
+                  '3' :{'descr':'set PS      ','cmd':SVIDCMD.PS,     'data':0x04,'delay':1600}, 
+                  '4' :{'descr':'read status1','cmd':SVIDCMD.GETREG, 'data':0x10,'delay':20 }, '9' :{'descr':'read status1','cmd':SVIDCMD.GETREG,'data':0x10,'delay':20 },
+                  '5' :{'descr':'read PS     ','cmd':SVIDCMD.GETREG, 'data':0x32,'delay':20 }, '10':{'descr':'read PS     ','cmd':SVIDCMD.GETREG,'data':0x32,'delay':20 },
+                  '6' :{'descr':'read VID    ','cmd':SVIDCMD.GETREG, 'data':0x31,'delay':20 }, '11':{'descr':'read VID    ','cmd':SVIDCMD.GETREG,'data':0x31,'delay':20 }}
+
+vector_dict = vector_dict1
 #-------------------------------------------------------------------------
 # Main program
 
