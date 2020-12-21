@@ -4,10 +4,19 @@
 # 
 # ---Modified from Intel DC_Load_Example
 # 
+# NOTE: BEFORE RUNNING THIS PROGRAM, YOU MUST SETUP THE GEN5VTT TOOL SOFTWARE PROPERLY
+# 1) SET VID TABLE TO IMVP9_1
+# 2) SET RAIL TO VCCCORE (OR GT, IF APPROPRIATE)
+# 3) OPEN SERIAL VID CONTROLS AND SET:
+#      A) COMMAND TO GET REG (07)
+#      B) DATA TO 15
+#      C) CLICK SEND COMMAND
 #--------------------------------------------------------------------------------------
 
 
 import clr, os, sys, time
+
+import numpy as np
 
 sys.path.append(os.path.join(sys.path[0],'intel'))
 
@@ -68,17 +77,17 @@ def read_imon(raildata):
         svid_command = 0x7  # Get Reg
         imon_register_address = 0x15
         data_api.SetSvidCmdWrite(raildata.VRAddress, svid_command, imon_register_address, raildata.SVIDBus)
-        time.sleep(0.25)
+        time.sleep(.25)
         svid_transaction = data_api.GetSvidData()
     svid_data=0
     if svid_transaction is not None:
         svid_data=svid_transaction.SVRData
     return svid_data
     
-def sweep_load_current(raildata,testrail,startcurrent,endcurrent,increment,iccmax):
+def sweep_load_current(raildata,testrail,testcurrents,iccmax):#startcurrent,endcurrent,increment,iccmax):
     current_offset=0.25
     #test_currents = [1,5,10,15,50,100]  # A
-    for current in range(startcurrent, endcurrent+increment, increment):
+    for current in testcurrents: #range(startcurrent, endcurrent+increment, increment):
         test_current=current+current_offset
         #test_current=current
         generator_api.Generator1SVSC(testrail, test_current, True)
@@ -107,8 +116,10 @@ test_rail = "VCCCORE"
 test_voltage = 0.9  # V
 icc_max = 160
 start_current = 0
-end_current = 50
-increment = 5
+end_current = 100
+num_datapoints = 12
+test_currents = np.linspace(start_current,end_current,num_datapoints)
+#increment = 5
 
 rail_data = define_rail_data(test_rail)
 print(rail_data.Name)
@@ -126,7 +137,7 @@ print('  .......................................................................
 print('  Rail Current \t Rail Voltage\t IMON')
 print('  .............................................................................................................')
 
-sweep_load_current(rail_data,test_rail,start_current,end_current,increment,icc_max)
+sweep_load_current(rail_data,test_rail,test_currents,icc_max)
 
 generator_api.Generator1SVSC(test_rail, 0, False)
 print("---------------------------------------------------------------------------------------------------------------")
