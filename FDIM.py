@@ -12,53 +12,27 @@
 #           - Initial versioning.
 #   pulled latest from GEN5CONTROLLER\NEXTGEN\PythonApplication2
 
-import clr
-import sys, os
-import time
-import openpyxl
+import clr,sys,os,time,openpyxl,numpy
 from math import log10
-from openpyxl import load_workbook
-from openpyxl import Workbook
-import numpy
+from openpyxl import load_workbook, Workbook
+from openpyxl.chart import ScatterChart, Reference, Series
 
 sys.path.append(os.path.join(sys.path[0],'intel'))
 
-from Common.APIs import DataAPI
-from Common.APIs import DisplayAPI
-from Common.Models import TriggerModel
-from Common.Models import FanModel
-from Common.Models import RawDataModel
-from Common.Models import DataModel
-from Common.Models import DisplayModel
-from Common.Enumerations import HorizontalScale
-from Common.Enumerations import Cursors
-from Common.Enumerations import ScoplessChannel
-from Common.APIs import MeasurementAPI
-from Common.APIs import GeneratorAPI
-from Common.APIs import MeasurementItemsAPI
-from Common.Models import MeasurementItemModel
-from Common.Enumerations import PowerState
-from Common.Enumerations import Transition
-from Common.Enumerations import PowerState
-from Common.Enumerations import Transition
-from Common.Enumerations import Protocol
-from Common.Enumerations import RailTestMode
-from Common.Enumerations import MeasurementItemType
-from Common.Enumerations import MeasurementItemUnit
+from Common.APIs import DataAPI,DisplayAPI,MeasurementAPI,GeneratorAPI,MeasurementItemsAPI
+from Common.Models import TriggerModel,FanModel,RawDataModel,DataModel,DisplayModel,MeasurementItemModel
+from Common.Enumerations import HorizontalScale,Cursors,ScoplessChannel,PowerState,Transition,Protocol,RailTestMode,MeasurementItemType,MeasurementItemUnit
 
 from System import String, Char, Int32, UInt16, Boolean, Array, Byte, Double
-from System.Collections.Generic import List
-from System.Collections.Generic import Dictionary
-
-from openpyxl.chart import ScatterChart, Reference, Series
+from System.Collections.Generic import List,Dictionary
 
 
 # Test Parameters - Edit these
 test_rail = "VCCGT"
 test_voltage = 0.9
-high_current = 45  # High current level (A)
-low_current = 35  # Low current level (A)
-duty_cycle = 50  # Duty cycle (%)
+high_current = 28  # High current level (A)
+low_current = 18  # Low current level (A)
+duty_cycle = 32  # Duty cycle (%)
 start_frequency = 1  # Start frequency (kHz)
 end_frequency = 1000  # End frequency (kHz)
 drive_rise_time = 100
