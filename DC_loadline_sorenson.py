@@ -59,6 +59,7 @@ def measure_vout_ripple(testrail):
 class Loadline:
     def __init__(self,raildata,testrail,powerstate,testcurrents,iccmax):
         self.load1 = SorensonMM2(active_ch=1); self.load2 = SorensonMM2(active_ch=3)
+        self.load1max=15;                      
         self.raildata=raildata;                self.testrail=testrail
         self.ps=int(powerstate);               self.testcurrents=testcurrents
         self.iccmax=iccmax;                    self.voffset_cal = 0.001
@@ -103,7 +104,7 @@ class Loadline:
         def meas_load(current,loadn):
             loadn.set_value(current); loadn.on(); time.sleep(1)
             return np.round(loadn.meas(),3)
-        load2_pct=0.5 #/100 
+        load2_pct=0.5*(testcurrent>self.load1max) #/100 
         total_load=meas_load(testcurrent*(1-load2_pct),self.load1)+ \
                    (meas_load(testcurrent*load2_pct,self.load2) if load2_pct else 0)
         return np.round(total_load,3)
@@ -193,6 +194,8 @@ print("----------------------------------")
 print("##################################")
 print("")
 print("Begining Test")
+print("")
+print(f"If max load > {loadline_dataset.load1max}A connect 2nd load to evalboard")           
 print("")
 print('...............................')
 print('load\tVsense\tRipple\tdIMON\tIMON')

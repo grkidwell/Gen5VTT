@@ -67,7 +67,7 @@ def setup_and_run_vectors(testrail,vectordict):
  
 def output_screen(vresult,vectordict):
     print("------------------------------------------------------------------------------")
-    print("                              Hawkmock Vector                                 ")
+    print("                              Vector     s                                    ")
     print("------------------------------------------------------------------------------")
     print("")
     print('COMMAND   \tACK\tDATA\tPRTYERR\tPRTYVAL')
