@@ -4,7 +4,7 @@
 # 
 # ---Modified from Intel DC_Load_Example
 # 
-# NOTE: BEFORE RUNNING THIS PROGRAM, YOU MUST LAUNCH THE GEN5VTT TOOL SOFTWARE
+# NOTE: BEFORE RUNNING THIS PROGRAM, YOU MUST ATTACH SORENSEN MML-2 LOAD AND LAUNCH THE GEN5VTT TOOL SOFTWARE
 #
 #--------------------------------------------------------------------------------------
 
