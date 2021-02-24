@@ -10,7 +10,7 @@
 
 import clr, os, sys, time
 import numpy as np
-from instr.gpib_equip import SorensonMM2
+#from instr.gpib_equip import SorensonMM2
 
 import openpyxl
 from openpyxl import load_workbook,Workbook
@@ -58,7 +58,7 @@ def measure_vout_ripple(testrail):
 
 class Loadline:
     def __init__(self,raildata,testrail,powerstate,testcurrents,iccmax):
-        self.load1 = SorensonMM2(active_ch=1); self.load2 = SorensonMM2(active_ch=3)
+        #self.load1 = SorensonMM2(active_ch=1); self.load2 = SorensonMM2(active_ch=3)
         self.raildata=raildata;                self.testrail=testrail
         self.ps=int(powerstate);               self.testcurrents=testcurrents
         self.iccmax=iccmax;                    self.voffset_cal = 0.001
@@ -100,13 +100,13 @@ class Loadline:
         return f'{int(sum([int(self.read_imon_vector(self.raildata),16) for count in range(3)])/3):x}' 
 
     def load(self,testcurrent):
-        def meas_load(current,loadn):
-            loadn.set_value(current); loadn.on(); time.sleep(1)
-            return np.round(loadn.meas(),3)
-        load2_pct=0.5 #/100 
-        total_load=meas_load(testcurrent*(1-load2_pct),self.load1)+ \
-                   (meas_load(testcurrent*load2_pct,self.load2) if load2_pct else 0)
-        return np.round(total_load,3)
+        offset=0.4
+        generator_api.Generator1SVSC(self.testrail, testcurrent, True)
+        time.sleep(0.5)
+        #measurement_api.ResetPersistentCurrentMeasurement(self.testrail)
+        #time.sleep(0.5)
+        #current_measure = measurement_items_api.GetCurrentMeanOnce(self.testrail)[0].Value
+        return np.round(testcurrent+offset,3)
 
     def set_ps(self):
         svid_command = 0x4
@@ -126,7 +126,7 @@ class Loadline:
             print(f"{dd['load']}\t{dd['vsense']}\t{dd['ripple']}\t{dd['dimon']}\t{dd['imon']}")
             return dd
         self.dataset = [get_values_and_print(current) for current in self.testcurrents]
-        self.load1.off(); self.load2.off(); self.load1.disconnect(); self.load2.disconnect()
+        #self.load1.off(); self.load2.off(); self.load1.disconnect(); self.load2.disconnect()
 
     def export_to_excel(self):
         wb=Workbook(); ws1 = wb.create_sheet(title="loadline",index=1)
