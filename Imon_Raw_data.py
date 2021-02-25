@@ -205,8 +205,8 @@ Measurment.MeasureCurrentFrequency(voltage_rail)
 
 
 #Create Excel File
-ws1 = wb.create_sheet(title="IMON_Time", index=1)
-file_name='IMON_Time' + time.strftime("_%j_%M_%S", time.localtime()) +".xlsx"
+ws1 = wb.create_sheet(title="Raw_Data(GEN5)", index=1)
+file_name=os.path.join(sys.path[0],'IMON_Raw_Data' + time.strftime("_%j_%M_%S", time.localtime()) +".xlsx")
 
 #Set up Excel Doc:
 

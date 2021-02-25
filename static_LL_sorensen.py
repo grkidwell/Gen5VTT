@@ -4,7 +4,8 @@
 # 
 # ---Modified from Intel DC_Load_Example
 # 
-# NOTE: BEFORE RUNNING THIS PROGRAM, YOU MUST ATTACH SORENSEN MML-2 LOAD AND LAUNCH THE GEN5VTT TOOL SOFTWARE
+# NOTE: BEFORE RUNNING THIS PROGRAM, YOU MUST ATTACH SORENSEN MML-2 LOAD TO EVALBOARD AND TO PC VIA GPIB
+#  AND LAUNCH THE GEN5VTT TOOL SOFTWARE
 #
 #--------------------------------------------------------------------------------------
 
@@ -59,7 +60,7 @@ def measure_vout_ripple(testrail):
 class Loadline:
     def __init__(self,raildata,testrail,powerstate,testcurrents,iccmax):
         self.load1 = SorensonMM2(active_ch=1); self.load2 = SorensonMM2(active_ch=3)
-        self.load1max=15;                      
+        self.load1max=25;                      
         self.raildata=raildata;                self.testrail=testrail
         self.ps=int(powerstate);               self.testcurrents=testcurrents
         self.iccmax=iccmax;                    self.voffset_cal = 0.001
