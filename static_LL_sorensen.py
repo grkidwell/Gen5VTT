@@ -168,14 +168,14 @@ ps_dict = {'0':{'VID':0.9,'test_currents':'dummy'}}
 # main program
 
 test_rail = "VCCGT"
-test_voltage = 0.9  # V
-ps = 0
+test_voltage = 0.3  # V
+ps = 3
 icc_max = 40
-tdc = 23 #43
-start_current = 0
+tdc = 20
+start_current = 0.1
 end_current = tdc
 num_datapoints = 12
-test_currents = np.linspace(start_current,end_current,num_datapoints)
+test_currents = [0,1]#np.linspace(start_current,end_current,num_datapoints)
 
 
 rail_data = define_rail_data(test_rail)

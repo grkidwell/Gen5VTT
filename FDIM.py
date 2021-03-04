@@ -28,10 +28,10 @@ from System.Collections.Generic import List,Dictionary
 
 
 # Test Parameters - Edit these
-test_rail = "VCCGT"
+test_rail = "VCCCORE"
 test_voltage = 0.9
-high_current = 28  # High current level (A)
-low_current = 18  # Low current level (A)
+high_current = 48  # High current level (A)
+low_current = 38  # Low current level (A)
 duty_cycle = 32  # Duty cycle (%)
 start_frequency = 1  # Start frequency (kHz)
 end_frequency = 1000  # End frequency (kHz)
@@ -55,7 +55,7 @@ measurement_items_api = MeasurementItemsAPI()
 # Set-up Excel  #########
 wb = Workbook()
 ws1 = wb.create_sheet(title="Load Test", index=1)
-file_name = 'FDIM' + time.strftime("_%j_%M_%S", time.localtime()) + ".xlsx"
+file_name = os.path.join(sys.path[0],'FDIM' + time.strftime("_%j_%M_%S", time.localtime()) + ".xlsx")
 
 # End Of imports
 print("##############################################################################")
