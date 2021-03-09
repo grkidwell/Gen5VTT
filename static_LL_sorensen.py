@@ -16,7 +16,7 @@ from instr.gpib_equip import SorensonMM2
 import openpyxl
 from openpyxl import load_workbook,Workbook
 
-sys.path.append(os.path.join(sys.path[0],'intel'))
+#sys.path.append(os.path.join(sys.path[0],'intel'))
 
 from Common.APIs import DataAPI, DisplayAPI, MeasurementAPI, MeasurementItemsAPI, GeneratorAPI,VectorAPI
 from Common.Models import TriggerModel,FanModel,RawDataModel,DataModel,DisplayModel

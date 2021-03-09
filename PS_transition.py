@@ -12,8 +12,11 @@
 #   pulled latest from GEN5CONTROLLER\NEXTGEN\PythonApplication2
 
 import clr
-import sys
+import sys,os
 import time
+
+sys.path.append(os.path.join(sys.path[0],'intel'))
+
 
 from Common.APIs import DataAPI
 from Common.APIs import VectorAPI
@@ -30,7 +33,7 @@ from Common.Enumerations import ScoplessChannel
 from Common.Enumerations import Cursors
 from Common.APIs import MeasurementAPI
 from Common.APIs import GeneratorAPI
-from CommonBL import *
+#from CommonBL import *
 from Common.Enumerations import PowerState
 from Common.Enumerations import Transition
 from Common.Enumerations import Protocol
@@ -51,7 +54,7 @@ from Common.Enumerations import DACTRIGCHN
 from Common.Enumerations import SVIDBUSVECTORS
 from Common.Enumerations import SVIDBURSTTRIGGER
 
-from CommonBL import *
+#from CommonBL import *
 from System import String, Char, Int32, UInt16, Boolean, Array, Byte, Double
 from System.Collections.Generic import List
 
@@ -74,7 +77,7 @@ print("")
 initial_ps =0
 next_ps =1
 vraddress = 0
-svid_bus = 1
+svid_bus = 0
 test_rail = 'VCCCORE'
 test_voltage = 1.2
 clock_delay = 2
